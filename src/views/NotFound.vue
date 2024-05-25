@@ -1,5 +1,6 @@
 <script setup lang="ts">
+
 </script>
 <template>
-    <RouterView/>
+    <p>Page not found (404)</p>
 </template>

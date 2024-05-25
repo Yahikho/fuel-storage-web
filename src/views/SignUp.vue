@@ -2,5 +2,5 @@
 
 </script>
 <template>
-
+    <p>Sing Up</p>
 </template>
