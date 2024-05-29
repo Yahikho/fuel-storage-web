@@ -10,7 +10,9 @@ const password = ref('')
 
 </script>
 <template>
-    <ColorMode />
+    <div class="absolute top-0 right-0 px-4 py-2 ">
+        <ColorMode />
+    </div>
     <div class="grid justify-center mt-20">
         <h2 class="text-orange-500 font-bold">Sign In</h2>
         <form class="grid gap-7 mt-4">
@@ -20,7 +22,7 @@ const password = ref('')
                 Sign In
             </Button>
         </form>
-        <span class="text-sm mt-2">Not registered yet? <a href="" class="hover:text-orange-500 ">Create Acount</a></span>
+        <span class="text-sm mt-2">Not registered yet? <RouterLink to="/singup" class="hover:text-orange-500 ">Sing Up</RouterLink></span>
     </div>
 
 </template>
