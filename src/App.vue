@@ -1,5 +1,10 @@
 <script setup lang="ts">
 </script>
 <template>
-    <RouterView/>
+    <RouterView />
 </template>
+<style>
+html.dark {
+    color-scheme: dark;
+}
+</style>

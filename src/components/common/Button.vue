@@ -10,12 +10,12 @@ withDefaults(defineProps<{
     minlength: 0,
     readonly: false,
     required: false,
-    width: 20,
-    height: 4
+    width: 0,
+    height: 0
 })
 </script>
 <template>
-    <button class="cursor-pointer hover:bg-orange-500 text-sm font-medium m-0 p-0 bg-orange-200 rounded" :class="`w-${width} h-${height}`">
+    <button class="cursor-pointer hover:bg-orange-600 text-sm font-medium m-0 p-0 bg-orange-500 rounded" :class="[ width ? `w-${width}` : 'w-full', height ? `h-${height}` : `h-9`]">
         <slot>
 
         </slot>

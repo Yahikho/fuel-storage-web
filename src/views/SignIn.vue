@@ -3,11 +3,14 @@ import { ref } from "vue"
 import InputText from "../components/common/InputText.vue"
 import InputPassword from "../components/common/InputPassword.vue"
 import Button from "../components/common/Button.vue"
+import ColorMode from "../components/common/ColorMode.vue"
+
 const userVal = ref('')
 const password = ref('')
 
 </script>
 <template>
+    <ColorMode />
     <div class="grid justify-center mt-20">
         <h2 class="text-orange-500 font-bold">Sign In</h2>
         <form class="grid gap-7 mt-4">
@@ -17,7 +20,7 @@ const password = ref('')
                 Sign In
             </Button>
         </form>
-        <span class="text-sm mt-2">Not registered yet? <a href="" class="hover:text-orange-500">Create Acount</a></span>
+        <span class="text-sm mt-2">Not registered yet? <a href="" class="hover:text-orange-500 ">Create Acount</a></span>
     </div>
 
 </template>
