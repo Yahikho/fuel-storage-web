@@ -15,14 +15,14 @@ const password = ref('')
     </div>
     <div class="grid justify-center mt-20">
         <h2 class="text-orange-500 font-bold">Sign In</h2>
-        <form class="grid gap-7 mt-4">
+        <form class="grid gap-7 mt-4" method="post">
             <InputText id="user" name="user" placeholder="username or e-mail" v-model="userVal" />
             <InputPassword id="password" name="password" placeholder="password" v-model="password" />
             <Button>
                 Sign In
             </Button>
         </form>
-        <span class="text-sm mt-2">Not registered yet? <RouterLink to="/singup" class="hover:text-orange-500 ">Sing Up</RouterLink></span>
+        <span class="text-sm mt-2">Not registered yet? <RouterLink to="/singup" class="hover:text-orange-500 font-bold">Sing Up</RouterLink></span>
     </div>
 
 </template>
