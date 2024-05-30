@@ -12,6 +12,11 @@ const dynamicRoute: RouteRecordRaw[] = [
         component: () => import("../views/SignUp.vue")
     },
     {
+        path: "/code",
+        name: "code",
+        component: () => import("../views/CodeValidation.vue")
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: 'signin'
     },

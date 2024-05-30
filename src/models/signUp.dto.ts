@@ -7,5 +7,5 @@ export interface UserCreatedDto {
     code: number
     response: boolean
     message: string | [string]
-    data?: any
+    data?: DataUserDto
 }
