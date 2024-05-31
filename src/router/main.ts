@@ -1,4 +1,5 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
+import { getCookie } from "../utils/cookies"
 
 const dynamicRoute: RouteRecordRaw[] = [
     {
@@ -17,14 +18,15 @@ const dynamicRoute: RouteRecordRaw[] = [
         component: () => import("../views/CodeValidation.vue")
     },
     {
-        path: '/:pathMatch(.*)*',
-        redirect: 'signin'
+        path: "/:pathMatch(.*)*",
+        component: () => import('../views/NotFound.vue')
     },
-    /*{
-        path: '/:pathMatch(.*)*',
-        name: 'NotFound',
-        component: import("../views/NotFound.vue"),
-    },*/
+    {
+        path: '/home',
+        name: 'home',
+        component: () => import('../views/Home.vue'),
+        meta: { requiresAuth: true }
+    },
     {
         path: '/',
         redirect: 'signin'
@@ -35,5 +37,15 @@ const router = createRouter({
     history: createWebHistory(),
     routes: dynamicRoute
 })
+
+router.beforeEach((to, _from, next) => {
+    if (to.name !== 'signin' && !getCookie('access_token')) {
+        next({ path: '/signin' });
+    } else if (to.name === 'signin' && getCookie('access_token')) {
+        next({ path: '/home' });
+    } else {
+        next();
+    }
+});
 
 export default router

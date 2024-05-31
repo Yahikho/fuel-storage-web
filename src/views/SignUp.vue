@@ -8,6 +8,7 @@ import ColorMode from "../components/common/ColorMode.vue"
 import { useFetch } from '../composables/services-api-rest';
 import { UserCreatedDto } from "../models/signUp.dto"
 import { useToast } from "../managers/ToastManager"
+import router from "../router/main"
 
 const email = ref('')
 const username = ref('')
@@ -33,7 +34,8 @@ async function signUp() {
     }
 
     if (data.value?.response) {
-        toast.addToast(Array.isArray(data.value.message) ? '' : data.value.message, 'success', 3000)
+        toast.addToast(Array.isArray(data.value.message) ? '' : 'The code was send to the resgistered email.', 'success', 3000)
+        router.push('code')
     } else {
         if (typeof data.value?.message === 'object') {
             data.value.message.forEach(element => {
@@ -44,9 +46,7 @@ async function signUp() {
         }
     }
 
-
     _isLoading.value = isLoading.value
-
 }
 
 </script>

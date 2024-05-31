@@ -6,6 +6,7 @@ import Button from "../components/common/Button.vue"
 import { useFetch } from '../composables/services-api-rest';
 import { useToast } from "../managers/ToastManager"
 import { UserValidatedDto } from "../models/codeValidation.ts"
+import router from "../router/main";
 
 const code = ref('')
 const _isLoading = ref(false)
@@ -26,6 +27,7 @@ async function validaCode() {
 
     if (data.value?.response) {
         toast.addToast(Array.isArray(data.value.message) ? '' : data.value.message, 'success', 3000)
+        router.push('signin')
     } else {
         if (typeof data.value?.message === 'object') {
             data.value.message.forEach(element => {
