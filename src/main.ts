@@ -10,12 +10,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon, faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 import ToastPlugin from './managers/ToastPlugin'
 
-library.add(faSun, faMoon)
+library.add(faSun, faMoon, faUser)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

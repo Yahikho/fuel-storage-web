@@ -41,7 +41,7 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
     if (to.name !== 'signin' && !getCookie('access_token')) {
         next({ path: '/signin' });
-    } else if (to.name === 'signin' && getCookie('access_token')) {
+    } else if ((to.name === 'signin' || to.name === 'singup') && getCookie('access_token')) {
         next({ path: '/home' });
     } else {
         next();

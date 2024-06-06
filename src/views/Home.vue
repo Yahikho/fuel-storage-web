@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import Menu from "../layouts/Menu.vue"
 </script>
 <template>
-    <p>Home</p>
+    <section>
+        <Menu />
+    </section>
+    <RouterView />
 </template>
