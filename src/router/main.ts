@@ -28,6 +28,12 @@ const dynamicRoute: RouteRecordRaw[] = [
         meta: { requiresAuth: true }
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('../views/Profile.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/',
         redirect: 'signin'
     }

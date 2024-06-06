@@ -2,8 +2,5 @@
 import Menu from "../layouts/Menu.vue"
 </script>
 <template>
-    <section>
-        <Menu />
-    </section>
-    <RouterView />
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi earum voluptas unde similique odio placeat quasi quo suscipit totam veniam velit, asperiores rerum mollitia, cum et? Quod veniam tenetur impedit!
 </template>

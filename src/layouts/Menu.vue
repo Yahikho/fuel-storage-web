@@ -1,14 +1,6 @@
 <script setup>
 import ColorMode from "../components/common/ColorMode.vue"
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-
-const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
-]
+import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 </script>
 <template>
     <Disclosure as="nav" v-slot="{ open }">
@@ -39,17 +31,13 @@ const navigation = [
                             <MenuItems
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
-                                    Profile</a>
+                                <RouterLink to="/profile"
+                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
+                                    Profile</RouterLink>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
                                 <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
+                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
                                     out</a>
                                 </MenuItem>
                             </MenuItems>
@@ -58,13 +46,5 @@ const navigation = [
                 </div>
             </div>
         </div>
-
-        <DisclosurePanel class="sm:hidden">
-            <div class="space-y-1 px-2 pb-3 pt-2">
-                <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href"
-                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
-                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
-            </div>
-        </DisclosurePanel>
     </Disclosure>
 </template>
