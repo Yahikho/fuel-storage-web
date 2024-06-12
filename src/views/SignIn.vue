@@ -25,8 +25,6 @@ async function signIn() {
         },
     });
 
-    console.log(data)
-
     if (error.value) {
         toast.addToast(error.value ? error.value : '', 'danger', 3000)
         _isLoading.value = false

@@ -1,5 +1,4 @@
 export interface UserSignIndDto {
-    code: number
     response: boolean
     message: string | [string]
     data?: {

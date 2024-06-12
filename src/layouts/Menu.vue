@@ -1,6 +1,58 @@
-<script setup>
+<script setup lang="ts">
+import { Ref, onMounted, ref } from "vue"
 import ColorMode from "../components/common/ColorMode.vue"
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { deleteCookie } from "../utils/cookies"
+import router from "../router/main";
+import { ResponseGetInfoUserDto, DataGetInfoUser } from "../models/infoUser.dto"
+import { useFetch } from "../composables/services-api-rest";
+import { getCookie } from "../utils/cookies"
+import { useToast } from "../managers/ToastManager"
+import Spinner from "../components/common/Spinner.vue";
+
+const _data: Ref<DataGetInfoUser> = ref({} as DataGetInfoUser)
+const _isLoading = ref(false)
+const toast = useToast()
+
+onMounted(async () => {
+    await getInfoUser()
+})
+
+async function getInfoUser() {
+    _isLoading.value = true
+    const cookie = getCookie('access_token')
+    const { data, isLoading, error } = await useFetch<ResponseGetInfoUserDto | null>('http://127.0.0.1:3000/api-fuel-storage/profile/get-info-user', "GET", {
+        "headers": {
+            "Authorization": `Bearer ${cookie}`
+        }
+    })
+
+
+    if (error.value) {
+        toast.addToast(error.value ? error.value : '', 'danger', 3000)
+        _isLoading.value = false
+    }
+
+    if (data.value?.response) {
+        _data.value = data.value.data!
+    } else {
+        if (typeof data.value?.message === 'object') {
+            data.value.message.forEach(element => {
+                toast.addToast(element, 'warn', 3000)
+            });
+        } else {
+            toast.addToast(data.value!.message, 'danger', 3000)
+        }
+    }
+
+    _isLoading.value = isLoading.value
+}
+
+function signout() {
+    deleteCookie('access_token')
+    router.push('/login')
+}
+
 </script>
 <template>
     <Disclosure as="nav" v-slot="{ open }">
@@ -13,13 +65,13 @@ import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/v
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3">
                         <div>
-                            <MenuButton
+                            <Spinner v-if="_isLoading"/>    
+                            <MenuButton v-else
                                 class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span class="absolute -inset-1.5" />
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="" />
+                                    :src="_data.avatar" alt="" />
                             </MenuButton>
                         </div>
                         <transition enter-active-class="transition ease-out duration-100"
@@ -32,12 +84,13 @@ import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/v
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
                                 <RouterLink to="/profile"
-                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
+                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700']">
+                                    Your
                                     Profile</RouterLink>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
+                                <a @click="signout"
+                                    :class="[active ? 'bg-orange-500' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer']">Sign
                                     out</a>
                                 </MenuItem>
                             </MenuItems>
