@@ -8,8 +8,8 @@ const dynamicRoute: RouteRecordRaw[] = [
         component: () => import("../views/SignIn.vue")
     },
     {
-        path: "/singup",
-        name: "singup",
+        path: "/signup",
+        name: "signup",
         component: () => import("../views/SignUp.vue")
     },
     {
@@ -45,13 +45,20 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _from, next) => {
-    if (to.name !== 'signin' && !getCookie('access_token')) {
-        next({ path: '/signin' });
-    } else if ((to.name === 'signin' || to.name === 'singup') && getCookie('access_token')) {
-        next({ path: '/home' });
-    } else {
+    const isAuthenticated = !!getCookie('access_token');
+  
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!isAuthenticated) {
+        next({
+          path: '/signin',
+          query: { redirect: to.fullPath }
+        });
+      } else {
         next();
+      }
+    } else {
+      next();
     }
-});
+  });
 
 export default router

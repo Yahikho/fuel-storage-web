@@ -53,7 +53,7 @@ async function getInfoUser() {
 
 function signout() {
     deleteCookie('access_token')
-    router.push('/login')
+    router.push('/signin')
 }
 
 </script>

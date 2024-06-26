@@ -65,7 +65,7 @@ async function signIn() {
             </Button>
             <Spinner v-if="_isLoading" />
         </form>
-        <span class="text-sm mt-2">Not registered yet? <RouterLink to="/singup" class="hover:text-orange-500 font-bold">
+        <span class="text-sm mt-2">Not registered yet? <RouterLink to="/signup" class="hover:text-orange-500 font-bold">
                 Sing Up</RouterLink></span>
     </div>
 </template>
